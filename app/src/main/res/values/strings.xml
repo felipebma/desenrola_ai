@@ -6,4 +6,8 @@
     <string name="create_new_account">Não tem conta? Cadastrar</string>
     <string name="login">Entrar</string>
     <string name="logo_img">Logo image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="address">Endereço</string>
+    <string name="name">Nome</string>
 </resources>
