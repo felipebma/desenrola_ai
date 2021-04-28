@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Desenrola Aí</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="create_new_account">Não tem conta? Cadastrar</string>
+    <string name="login">Entrar</string>
+    <string name="logo_img">Logo image</string>
 </resources>
