@@ -1,6 +1,7 @@
 package com.example.desenrolaai
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,46 +10,40 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.example.desenrolaai.databinding.FragmentSignUpBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SignUpFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignUpFragment : Fragment() {
+
+    data class User(
+        var name: String = "",
+        var email: String = "",
+        var address: String = "",
+        var password: String = ""
+    )
+
+    private val user = User()
+    lateinit var binding: FragmentSignUpBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentSignUpBinding>(inflater, R.layout.fragment_sign_up, container,false)
+        binding = DataBindingUtil.inflate<FragmentSignUpBinding>(
+            inflater,
+            R.layout.fragment_sign_up,
+            container,
+            false
+        )
         binding.signUpText.setOnClickListener {
             it.findNavController().navigate(R.id.action_signUpFragment_to_titleFragment)
         }
+        binding.signUpButton.setOnClickListener { signUp() }
         return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignUpFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SignUpFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun signUp() {
+        user?.name = binding.nameEdit.text.toString()
+        user?.address = binding.addressEdit.text.toString()
+        user?.email = binding.emailEdit.text.toString()
+        user?.password = binding.passwordEdit.text.toString()
+        Log.d("User", user.toString())
     }
 }
