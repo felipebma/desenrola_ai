@@ -7,122 +7,127 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.desenrolaai.MainActivity
 import com.example.desenrolaai.R
 import com.example.desenrolaai.databinding.FragmentSignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.lang.Error
 
 
 class SignInFragment : Fragment() {
 
-    data class Login(
-        var email: String = "",
-        var password: String = ""
-    )
-
-    lateinit var binding : FragmentSignInBinding
-    private val login =
-        Login()
+    private lateinit var viewModel: SignInViewModel
+    lateinit var binding: FragmentSignInBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentSignInBinding>(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_sign_in,
             container,
             false
         )
+
+        viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
+
+        binding.emailEdit.doOnTextChanged { text, start, before, count ->
+            viewModel.email.value = text.toString()
+        }
+
+        binding.passwordEdit.doOnTextChanged { text, start, before, count ->
+            viewModel.password.value = text.toString()
+        }
+
         binding.signUpText.setOnClickListener {
             it.findNavController().navigate(R.id.action_titleFragment_to_signUpFragment)
         }
 
-        val auth = FirebaseAuth.getInstance();
-        val db = FirebaseFirestore.getInstance();
+        val auth = FirebaseAuth.getInstance()
+        val db = FirebaseFirestore.getInstance()
 
-        val currentUser = auth!!.currentUser
-        if(currentUser != null){
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
             Log.d("Usuário atual:", currentUser.toString())
-
-            //ir para dentro do app
-            val intent = Intent(getActivity(), MainActivity::class.java)
-            this.activity?.finish();
-            startActivity(intent);
+            onSuccessfulSignIn()
         }
 
-        binding.signInButton.setOnClickListener {signIn(auth!!, db)}
+        updateEmailAndPassword()
+        binding.signInButton.setOnClickListener { signIn(auth, db) }
         return binding.root
     }
 
     private fun signIn(auth: FirebaseAuth, databaseFirestore: FirebaseFirestore) {
 
-        login?.email = binding.emailEdit.text.toString()
-        login?.password = binding.passwordEdit.text.toString()
+        viewModel.email.value = binding.emailEdit.text.toString()
+        viewModel.password.value = binding.passwordEdit.text.toString()
 
-        if (login.email == "" && login.password == ""){
+        if (viewModel.email.value == "" && viewModel.password.value == "") {
             Toast.makeText(
-                getActivity(), "Algo deu errado, cheque suas credenciais e tente novamente!",
+                activity, "Algo deu errado, cheque suas credenciais e tente novamente!",
                 Toast.LENGTH_SHORT
             ).show()
-            return;
+            return
         }
 
-        val isValid = isEmailValid(login.email)
-
-        if(!isValid){
+        if (!viewModel.isEmailValid()) {
             Toast.makeText(
-                getActivity(), "Email inválido",
+                activity, "Email inválido",
                 Toast.LENGTH_SHORT
             ).show()
-            return;
+            return
         }
-
-
 
         try {
-            auth.signInWithEmailAndPassword(login.email, login.password).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(
-                        getActivity(), "Login realizado",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    databaseFirestore.collection("users")
-                        .whereEqualTo("email", login.email)
-                        .get()
-                        .addOnSuccessListener { documents ->
-                            for (document in documents) {
-                                Log.d("Id user:", "${document.id} => ${document.data}")
+            auth.signInWithEmailAndPassword(viewModel.email.value, viewModel.password.value)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(
+                            activity, "Login realizado",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        databaseFirestore.collection("users")
+                            .whereEqualTo("email", viewModel.email.value)
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                for (document in documents) {
+                                    Log.d("Id user:", "${document.id} => ${document.data}")
+                                }
+                                onSuccessfulSignIn()
                             }
-                            //ir para dentro do app
-                            val intent = Intent(getActivity(), MainActivity::class.java)
-                            this.activity?.finish();
-                            startActivity(intent);
-                        }
-                        .addOnFailureListener { exception ->
-                            Log.w("Erro", "Error getting documents: ", exception)
-                        }
-                } else {
-                    Toast.makeText(
-                        getActivity(), "Falha ao fazer login, tente novamente!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                            .addOnFailureListener { exception ->
+                                Log.w("Error", "Error getting documents: ", exception)
+                            }
+                    } else {
+                        Toast.makeText(
+                            activity, "Falha ao fazer login, tente novamente!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-            }
-        } catch (err: Error){
+        } catch (err: Error) {
             Toast.makeText(
-                getActivity(), "Algo deu errado, cheque suas credenciais e tente novamente!",
+                activity, "Algo deu errado, cheque suas credenciais e tente novamente!",
                 Toast.LENGTH_SHORT
             ).show()
         }
     }
 
-    fun isEmailValid(email: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    private fun updateEmailAndPassword() {
+        Log.i("MainActivity", viewModel.email.value!!)
+        binding.emailEdit.setText(viewModel.email.value)
+        binding.passwordEdit.setText(viewModel.password.value)
+    }
+
+    private fun onSuccessfulSignIn() {
+        val intent = Intent(activity, MainActivity::class.java)
+        activity?.finish()
+        startActivity(intent)
     }
 }
