@@ -50,6 +50,7 @@ class TitleFragment : Fragment() {
 
             //ir para dentro do app
             val intent = Intent(getActivity(), MainActivity::class.java)
+            this.activity?.finish();
             startActivity(intent);
         }
 
@@ -78,6 +79,7 @@ class TitleFragment : Fragment() {
                         }
                         //ir para dentro do app
                         val intent = Intent(getActivity(), MainActivity::class.java)
+                        this.activity?.finish();
                         startActivity(intent);
                     }
                     .addOnFailureListener { exception ->
