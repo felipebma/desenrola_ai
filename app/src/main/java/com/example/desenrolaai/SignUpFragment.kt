@@ -59,11 +59,19 @@ class SignUpFragment : Fragment() {
         user?.email = binding.emailEdit.text.toString()
         user?.password = binding.passwordEdit.text.toString()
 
+        val isValid = isEmailValid(user.email)
+
+        if(!isValid){
+            Toast.makeText(
+                getActivity(), "Email inválido",
+                Toast.LENGTH_SHORT
+            ).show()
+            return;
+        }
+
         auth.createUserWithEmailAndPassword(user.email, user.password).addOnCompleteListener {
                 task ->
             if (task.isSuccessful) {
-                val userFirebase = auth.currentUser
-
                 val profile: MutableMap<String, Any> = HashMap()
                 profile["name"] = user.name
                 profile["address"] = user.address
@@ -89,5 +97,9 @@ class SignUpFragment : Fragment() {
             }
         }
 
+    }
+
+    fun isEmailValid(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }
