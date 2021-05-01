@@ -13,6 +13,9 @@ import androidx.navigation.findNavController
 import com.example.desenrolaai.databinding.FragmentTitleBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.desenrolaai.firebase.Firebase
+import java.lang.Error
+import java.util.regex.Pattern
 
 
 class TitleFragment : Fragment() {
@@ -23,9 +26,7 @@ class TitleFragment : Fragment() {
     )
 
     lateinit var binding : FragmentTitleBinding
-    private var mAuth: FirebaseAuth? = null
     private val login = Login()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,10 +42,10 @@ class TitleFragment : Fragment() {
             it.findNavController().navigate(R.id.action_titleFragment_to_signUpFragment)
         }
 
-        mAuth = FirebaseAuth.getInstance();
-        val db = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance();
+        val db = FirebaseFirestore.getInstance();
 
-        val currentUser = mAuth!!.currentUser
+        val currentUser = auth!!.currentUser
         if(currentUser != null){
             Log.d("Usuário atual:", currentUser.toString())
 
@@ -54,7 +55,7 @@ class TitleFragment : Fragment() {
             startActivity(intent);
         }
 
-        binding.signInButton.setOnClickListener {signIn(mAuth!!, db)}
+        binding.signInButton.setOnClickListener {signIn(auth!!, db)}
         return binding.root
     }
 
@@ -63,34 +64,64 @@ class TitleFragment : Fragment() {
         login?.email = binding.emailEdit.text.toString()
         login?.password = binding.passwordEdit.text.toString()
 
-        auth.signInWithEmailAndPassword(login.email, login.password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val user = auth.currentUser
-                Toast.makeText(
-                    getActivity(), "Login realizado",
-                    Toast.LENGTH_SHORT
-                ).show()
-                databaseFirestore.collection("users")
-                    .whereEqualTo("email", login.email)
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            Log.d("Id user:", "${document.id} => ${document.data}")
-                        }
-                        //ir para dentro do app
-                        val intent = Intent(getActivity(), MainActivity::class.java)
-                        this.activity?.finish();
-                        startActivity(intent);
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.w("Erro", "Error getting documents: ", exception)
-                    }
-            } else {
-                Toast.makeText(
-                    getActivity(), "Falha ao fazer login, tente novamente!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+        if (login.email == "" && login.password == ""){
+            Toast.makeText(
+                getActivity(), "Algo deu errado, cheque suas credenciais e tente novamente!",
+                Toast.LENGTH_SHORT
+            ).show()
+            return;
         }
+
+        val isValid = isEmailValid(login.email)
+
+        if(!isValid){
+            Toast.makeText(
+                getActivity(), "Email inválido",
+                Toast.LENGTH_SHORT
+            ).show()
+            return;
+        }
+
+
+
+        try {
+            auth.signInWithEmailAndPassword(login.email, login.password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(
+                        getActivity(), "Login realizado",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    databaseFirestore.collection("users")
+                        .whereEqualTo("email", login.email)
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            for (document in documents) {
+                                Log.d("Id user:", "${document.id} => ${document.data}")
+                            }
+                            //ir para dentro do app
+                            val intent = Intent(getActivity(), MainActivity::class.java)
+                            this.activity?.finish();
+                            startActivity(intent);
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.w("Erro", "Error getting documents: ", exception)
+                        }
+                } else {
+                    Toast.makeText(
+                        getActivity(), "Falha ao fazer login, tente novamente!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        } catch (err: Error){
+            Toast.makeText(
+                getActivity(), "Algo deu errado, cheque suas credenciais e tente novamente!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    fun isEmailValid(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }
