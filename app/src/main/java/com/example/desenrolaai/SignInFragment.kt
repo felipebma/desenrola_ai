@@ -10,31 +10,29 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.desenrolaai.databinding.FragmentTitleBinding
+import com.example.desenrolaai.databinding.FragmentSignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.example.desenrolaai.firebase.Firebase
 import java.lang.Error
-import java.util.regex.Pattern
 
 
-class TitleFragment : Fragment() {
+class SignInFragment : Fragment() {
 
     data class Login(
         var email: String = "",
         var password: String = ""
     )
 
-    lateinit var binding : FragmentTitleBinding
+    lateinit var binding : FragmentSignInBinding
     private val login = Login()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentTitleBinding>(
+        binding = DataBindingUtil.inflate<FragmentSignInBinding>(
             inflater,
-            R.layout.fragment_title,
+            R.layout.fragment_sign_in,
             container,
             false
         )

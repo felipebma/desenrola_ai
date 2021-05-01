@@ -6,9 +6,9 @@
 
     <fragment
         android:id="@+id/titleFragment"
-        android:name="com.example.desenrolaai.TitleFragment"
+        android:name="com.example.desenrolaai.SignInFragment"
         android:label="TitleFragment"
-        tools:layout="@layout/fragment_title">
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_titleFragment_to_signUpFragment"
             app:destination="@id/signUpFragment"
