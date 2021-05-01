@@ -1,4 +1,4 @@
-package com.example.desenrolaai
+package com.example.desenrolaai.screens.signup
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.desenrolaai.R
 import com.example.desenrolaai.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,8 +24,8 @@ class SignUpFragment : Fragment() {
         var password: String = ""
     )
 
-    private val user = User()
     lateinit var binding: FragmentSignUpBinding
+    private lateinit var user : User
     private var mAuth: FirebaseAuth? = null
 
     override fun onCreateView(
@@ -40,6 +41,8 @@ class SignUpFragment : Fragment() {
         binding.signUpText.setOnClickListener {
             it.findNavController().navigate(R.id.action_signUpFragment_to_titleFragment)
         }
+
+        user = User()
 
         mAuth = FirebaseAuth.getInstance()
         val db = FirebaseFirestore.getInstance()
