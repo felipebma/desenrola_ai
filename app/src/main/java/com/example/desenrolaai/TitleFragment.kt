@@ -44,7 +44,7 @@ class TitleFragment : Fragment() {
         mAuth = FirebaseAuth.getInstance();
         val db = FirebaseFirestore.getInstance()
 
-        val currentUser = mAuth!!.currentUser.email
+        val currentUser = mAuth!!.currentUser
         if(currentUser != null){
             Log.d("Usuário atual:", currentUser.toString())
 

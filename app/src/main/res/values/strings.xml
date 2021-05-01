@@ -12,4 +12,5 @@
     <string name="name">Nome</string>
     <string name="return_to_sign_in">Já tem uma conta? Entrar</string>
     <string name="sign_up">Cadastrar</string>
+    <string name="sign_out">Sair</string>
 </resources>
