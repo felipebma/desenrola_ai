@@ -1,27 +1,34 @@
 package com.example.desenrolaai
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import com.google.firebase.auth.FirebaseAuth
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import com.example.desenrolaai.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-
-    private var mAuth: FirebaseAuth? = null
-
+    private lateinit var drawerLayout: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        @Suppress("UNUSED_VARIABLE")
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-        mAuth = FirebaseAuth.getInstance();
+        drawerLayout = binding.mainDrawerLayout
 
-        this.findViewById<Button>(R.id.sign_out_button).setOnClickListener{
-            mAuth!!.signOut();
-            val intent = Intent(this, LoginActivity::class.java)
-            finish()
-            startActivity(intent)
-        }
+        val navController = this.findNavController(R.id.mainNavHostFragment)
+
+        NavigationUI.setupActionBarWithNavController(this,navController, drawerLayout)
+
+        NavigationUI.setupWithNavController(binding.mainDrawerNavView, navController)
+
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.mainNavHostFragment)
+        return NavigationUI.navigateUp(navController, drawerLayout)
+    }
+
 }
