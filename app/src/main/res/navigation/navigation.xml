@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/titleFragment"
-        android:name="com.example.desenrolaai.SignInFragment"
+        android:name="com.example.desenrolaai.screens.signin.SignInFragment"
         android:label="TitleFragment"
         tools:layout="@layout/fragment_sign_in">
         <action

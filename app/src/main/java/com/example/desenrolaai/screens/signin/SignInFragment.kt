@@ -1,4 +1,4 @@
-package com.example.desenrolaai
+package com.example.desenrolaai.screens.signin
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.desenrolaai.MainActivity
+import com.example.desenrolaai.R
 import com.example.desenrolaai.databinding.FragmentSignInBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,7 +26,8 @@ class SignInFragment : Fragment() {
     )
 
     lateinit var binding : FragmentSignInBinding
-    private val login = Login()
+    private val login =
+        Login()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
