@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/logoutMenu">
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        tools:layout="@layout/fragment_home"
-        android:id="@+id/logoutMenu"
+        android:id="@+id/homeFragment"
         android:name="com.example.desenrolaai.screens.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment2"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <fragment
-        tools:layout="@layout/fragment_products"
         android:id="@+id/productsFragment"
         android:name="com.example.desenrolaai.screens.home.ProductsFragment"
-        android:label="ProductsFragment" />
+        android:label="ProductsFragment"
+        tools:layout="@layout/fragment_products" />
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.desenrolaai.screens.product_detail.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail" />
 </navigation>

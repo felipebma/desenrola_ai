@@ -14,4 +14,7 @@
     <string name="home">Home</string>
     <string name="myProducts">Meus Itens</string>
     <string name="logout">Sair</string>
+    <string name="description">Descrição</string>
+    <string name="categories">Categorias</string>
+    <string name="price_per_day">Preço por dia</string>
 </resources>

@@ -85,7 +85,7 @@ class SignInFragment : Fragment() {
         }
 
         try {
-            auth.signInWithEmailAndPassword(viewModel.email.value, viewModel.password.value)
+            auth.signInWithEmailAndPassword(viewModel.email.value!!, viewModel.password.value!!)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(
@@ -105,6 +105,8 @@ class SignInFragment : Fragment() {
                                 Log.w("Error", "Error getting documents: ", exception)
                             }
                     } else {
+                        Log.i("Failed login email", viewModel.email.value!!)
+                        Log.i("Failed login password", viewModel.password.value!!)
                         Toast.makeText(
                             activity, "Falha ao fazer login, tente novamente!",
                             Toast.LENGTH_SHORT

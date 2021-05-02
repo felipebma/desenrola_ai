@@ -5,5 +5,7 @@ data class Product(
     var description: String? = null,
     val categories : List<String>? = ArrayList(),
     val images : List<String>? = ArrayList(),
-    val pricePerDay : Double? = 0.0
+    val pricePerDay : Double? = 0.0,
+    val address : String? = "",
+    val ownerEmail: String? = ""
 )
