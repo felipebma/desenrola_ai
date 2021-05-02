@@ -8,20 +8,25 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.desenrolaai.screens.home.HomeFragment"
-        android:label="HomeFragment"
+        android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment2"
             app:destination="@id/productDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/productsFragment"
-        android:name="com.example.desenrolaai.screens.home.ProductsFragment"
-        android:label="ProductsFragment"
-        tools:layout="@layout/fragment_products" />
-    <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.example.desenrolaai.screens.product_detail.ProductDetailFragment"
-        android:label="fragment_product_detail"
+        android:label="Detalhes do Produto"
         tools:layout="@layout/fragment_product_detail" />
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.example.desenrolaai.screens.my_profile.MyProfileFragment"
+        android:label="Meu Perfil"
+        tools:layout="@layout/fragment_my_profile" />
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.example.desenrolaai.screens.products.ProductsFragment"
+        android:label="Meus Produtos"
+        tools:layout="@layout/fragment_products" />
 </navigation>

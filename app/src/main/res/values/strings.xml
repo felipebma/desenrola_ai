@@ -15,6 +15,8 @@
     <string name="myProducts">Meus Itens</string>
     <string name="logout">Sair</string>
     <string name="description">Descrição</string>
-    <string name="categories">Categorias</string>
+    <string name="categories">Categorias: %s</string>
     <string name="price_per_day">Preço por dia</string>
+    <string name="new_password">Nova senha</string>
+    <string name="my_profile">Meu Perfil</string>
 </resources>

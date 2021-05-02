@@ -37,11 +37,11 @@ class SignInFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
 
-        binding.emailEdit.doOnTextChanged { text, start, before, count ->
+        binding.emailEdit.doOnTextChanged { text, _, _, _ ->
             viewModel.email.value = text.toString()
         }
 
-        binding.passwordEdit.doOnTextChanged { text, start, before, count ->
+        binding.passwordEdit.doOnTextChanged { text, _, _, _ ->
             viewModel.password.value = text.toString()
         }
 
