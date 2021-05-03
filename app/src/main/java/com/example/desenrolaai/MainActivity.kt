@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.desenrolaai.databinding.ActivityMainBinding
 import com.example.desenrolaai.firebase.Firebase
-import com.example.desenrolaai.screens.home.HomeFragment
+import com.example.desenrolaai.screens.map.MapFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logoutMenu -> {
-                this.startActivity(Intent(this, HomeFragment::class.java))
+                this.startActivity(Intent(this, MapFragment::class.java))
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

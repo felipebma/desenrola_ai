@@ -7,5 +7,7 @@ data class Product(
     val images : List<String>? = ArrayList(),
     val pricePerDay : Double? = 0.0,
     val address : String? = "",
-    val ownerEmail: String? = ""
+    val ownerEmail: String? = "",
+    val latitude: Double? = 0.0,
+    val longitude: Double? = 0.0
 )
