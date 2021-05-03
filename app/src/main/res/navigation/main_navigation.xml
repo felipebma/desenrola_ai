@@ -25,4 +25,9 @@
         android:name="com.example.desenrolaai.screens.map.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/borrowDetailFragment"
+        android:name="com.example.desenrolaai.screens.borrow_detail.BorrowDetailFragment"
+        android:label="fragment_borrow_detail"
+        tools:layout="@layout/fragment_borrow_detail" />
 </navigation>

@@ -45,7 +45,9 @@ class MapFragment : Fragment() {
     fun addMarker(googleMap: GoogleMap, product: Product){
         val pos = LatLng(product.latitude!!, product.longitude!!)
         val snippet = StringJoiner("\n")
-        snippet.add("Descrição: " + product.description)
+        val maxLength = 70
+        val description = if(product.description.length <= maxLength) product.description else product.description.substring(0, maxLength)+"..."
+        snippet.add("Descrição: $description")
         snippet.add("Preço por dia: R$%.2f".format(product.pricePerDay))
         val marker = googleMap.addMarker(
             MarkerOptions().position(pos).title(product.name)

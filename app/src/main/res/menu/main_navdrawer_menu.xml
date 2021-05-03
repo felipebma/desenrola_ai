@@ -10,5 +10,8 @@
         android:title="@string/myProducts" />
     <item
         android:id="@+id/logoutMenu"
-        android:title="@string/logout" />
+        android:title="@string/sign_out" />
+    <item
+        android:id="@+id/borrowDetailFragment"
+        android:title="borrow" />
 </menu>

@@ -6,5 +6,5 @@ data class User (
     var address : String? = null,
     var latitude : Double? = 0.0,
     var longitute : Double? = 0.0,
-    var products : List<Product>? = ArrayList()
+    var products : MutableList<Product>? = ArrayList()
 )
