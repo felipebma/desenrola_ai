@@ -25,7 +25,8 @@ class BorrowDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_borrow_detail, container, false)
-        viewModel = ViewModelProvider(this).get(BorrowDetailViewModel::class.java)
+        val viewModelFactory = BorrowDetailViewModelFactory(BorrowDetailFragmentArgs.fromBundle(requireArguments()).borrow, BorrowDetailFragmentArgs.fromBundle(requireArguments()).product)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(BorrowDetailViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 

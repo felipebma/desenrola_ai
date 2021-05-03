@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import com.example.desenrolaai.R
 import com.example.desenrolaai.model.Product
 import com.google.android.gms.maps.*
@@ -39,7 +40,14 @@ class MapFragment : Fragment() {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userPos, 15.0f))
         googleMap.setOnInfoWindowClickListener {
             Toast.makeText(context, "Produto Escolhido: " + (it.tag as Product).name, Toast.LENGTH_SHORT).show()
+            selectProduct(it.tag as Product);
         }
+    }
+
+    fun selectProduct(product: Product){
+        val action = MapFragmentDirections.actionMapFragmentToBorrowDetailFragment()
+        action.product = product
+        NavHostFragment.findNavController(this).navigate(action)
     }
 
     fun addMarker(googleMap: GoogleMap, product: Product){

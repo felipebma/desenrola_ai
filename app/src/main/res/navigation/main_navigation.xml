@@ -24,10 +24,25 @@
         android:id="@+id/mapFragment"
         android:name="com.example.desenrolaai.screens.map.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_borrowDetailFragment"
+            app:destination="@id/borrowDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/borrowDetailFragment"
         android:name="com.example.desenrolaai.screens.borrow_detail.BorrowDetailFragment"
         android:label="fragment_borrow_detail"
-        tools:layout="@layout/fragment_borrow_detail" />
+        tools:layout="@layout/fragment_borrow_detail" >
+        <argument
+            android:name="product"
+            app:argType="com.example.desenrolaai.model.Product"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="borrow"
+            app:argType="com.example.desenrolaai.model.Borrow"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

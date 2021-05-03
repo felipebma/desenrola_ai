@@ -3,6 +3,7 @@ package com.example.desenrolaai.screens.borrow_detail
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.desenrolaai.model.Borrow
 import com.example.desenrolaai.model.Product
 import com.example.desenrolaai.model.User
@@ -11,7 +12,7 @@ import com.example.desenrolaai.model.enums.BorrowStatus
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BorrowDetailViewModel : ViewModel() {
+class BorrowDetailViewModel(borrow: Borrow?, product: Product?) : ViewModel() {
     private val _borrow = MutableLiveData<Borrow>()
     private val _product = MutableLiveData<Product>()
 
@@ -20,7 +21,7 @@ class BorrowDetailViewModel : ViewModel() {
 
     init {
         status = BorrowDetailFragmentStatus.DETAIL
-        _borrow.value = fetchBorrow()
+        _borrow.value = fetchBorrow(borrow, product)
         _product.value = fetchProduct()
     }
 
@@ -28,24 +29,19 @@ class BorrowDetailViewModel : ViewModel() {
         return _borrow.value?.product!!
     }
 
-    private fun fetchBorrow(): Borrow {
-        val product = Product(
-            "Bicicleta",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            categories = listOf<String>("Brinquedo", "Veículo"),
-            pricePerDay = 10.0,
-            latitude = -8.04526287956983,
-            longitude = -34.911943550439595
-        )
-        val user = User("fbma@cin.ufpe.br", "Felipe", "", 0.0, 0.0)
-        val requester = User("lsm5@cin.ufpe.br", "Lucas", "", 0.0, 0.0)
-        user.products!!.add(product)
-        val date = sdf.parse("17/05/1994")
-        return Borrow(product, user, requester, date!!, 0, BorrowStatus.PENDING)
+    private fun fetchBorrow(borrow: Borrow?, product: Product?): Borrow {
+        if(borrow == null){
+            val startDate = sdf.format(Date())
+            val endDate = sdf.format(Date())
+            status = BorrowDetailFragmentStatus.DETAIL
+            return Borrow(product!!, "fbma@cin.ufpe.br", startDate, endDate, BorrowStatus.PENDING)
+        }
+        status = BorrowDetailFragmentStatus.READ
+        return borrow
     }
 
     fun getName() = _product.value?.name
-    fun getOwner() = _borrow.value?.owner?.name
+    fun getOwner() = _product.value?.ownerName
     fun getCategories(): String {
         val categories = StringJoiner(" | ")
         for (category in _product.value?.categories!!) categories.add(category)
@@ -56,7 +52,7 @@ class BorrowDetailViewModel : ViewModel() {
     fun getLongitude() = _product.value?.longitude
     fun getDescription() = _product.value?.description
     fun getPrice() = "R$ %.2f".format(_product.value?.pricePerDay)
-    fun getStartDay(): String = sdf.format(_borrow.value?.initialDate!!)
+    fun getStartDay(): String = _borrow.value?.startDate!!
 
     fun switchStatus(): Boolean{
         when(status){
