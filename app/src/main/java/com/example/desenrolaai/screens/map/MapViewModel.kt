@@ -7,17 +7,12 @@ import com.example.desenrolaai.model.Product
 import com.example.desenrolaai.model.User
 
 class MapViewModel: ViewModel() {
-    private val _products = MutableLiveData<List<Product>>()
-    val products: LiveData<List<Product>>
-        get() = _products
-
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
+    val _products = MutableLiveData<MutableList<Product>>()
+    val _user = MutableLiveData<User>()
 
     init{
-        _user.value = fetchUser()
-        _products.value = fetchProductList()
+        //_user.value = fetchUser()
+        //_products.value = fetchProductList()
     }
 
     private fun fetchUser(): User{

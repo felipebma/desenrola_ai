@@ -3,6 +3,7 @@ package com.example.desenrolaai.screens.map
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.desenrolaai.R
 import com.example.desenrolaai.model.Product
+import com.example.desenrolaai.model.User
 import com.google.android.gms.maps.*
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 class MapFragment : Fragment() {
@@ -33,14 +37,19 @@ class MapFragment : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         googleMap.setInfoWindowAdapter(infoAdapter(layoutInflater))
-        for (product in viewModel.products.value!!) {
-            addMarker(googleMap, product)
+        if(viewModel._products.value != null){
+            for (product in viewModel._products.value!!) {
+                addMarker(googleMap, product)
+            }
         }
-        val userPos = LatLng(viewModel.user.value?.latitude!!, viewModel.user.value?.longitute!!)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userPos, 15.0f))
-        googleMap.setOnInfoWindowClickListener {
-            Toast.makeText(context, "Produto Escolhido: " + (it.tag as Product).name, Toast.LENGTH_SHORT).show()
-            selectProduct(it.tag as Product);
+
+        if(viewModel._user.value != null){
+            val userPos = LatLng(viewModel._user.value?.latitude!!, viewModel._user.value?.longitute!!)
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userPos, 15.0f))
+            googleMap.setOnInfoWindowClickListener {
+                Toast.makeText(context, "Produto Escolhido: " + (it.tag as Product).name, Toast.LENGTH_SHORT).show()
+                selectProduct(it.tag as Product);
+            }
         }
     }
 
@@ -77,6 +86,43 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+        val db = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+
+
+        db.collection("users")
+            .whereEqualTo("email", currentUser.email)
+            .get()
+            .addOnSuccessListener { documents ->
+
+                viewModel._user.value = documents.toObjects(User::class.java)[0]
+                Log.d("FIREBASE", viewModel._user.value.toString())
+                mapFragment?.getMapAsync(callback)
+
+                db.collection("users")
+                    .whereEqualTo("email", currentUser.email)
+                    .get()
+                    .addOnSuccessListener { documents ->
+
+                        for(document in documents){
+                            viewModel._products.value?.add(document.toObject(Product::class.java))
+                            Log.d("FIREBASE",  viewModel._products.value.toString())
+                        }
+
+                        mapFragment?.getMapAsync(callback)
+
+
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("FIREBASE", "Error getting documents: ", exception)
+                    }
+
+
+            }
+            .addOnFailureListener { exception ->
+                Log.w("FIREBASE", "Error getting documents: ", exception)
+            }
+
     }
 }
