@@ -27,7 +27,6 @@ class ProductsFragment : Fragment() {
         binding.productList.adapter = adapter
         binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this).get(ProductsViewModel::class.java)
-        Log.i("ProductList", "Teste " + viewModel.products.toString())
         viewModel.products.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = it

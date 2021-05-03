@@ -9,7 +9,19 @@
         android:id="@+id/productDetailFragment"
         android:name="com.example.desenrolaai.screens.product_detail.ProductDetailFragment"
         android:label="Detalhes do Produto"
-        tools:layout="@layout/fragment_product_detail" />
+        tools:layout="@layout/fragment_product_detail" >
+        <argument
+            android:name="product"
+            app:argType="com.example.desenrolaai.model.Product" />
+        <argument
+            android:name="status"
+            app:argType="com.example.desenrolaai.model.enums.ProductDetailStatus" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_productsFragment"
+            app:destination="@id/productsFragment"
+            app:popUpTo="@id/productsFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/myProfileFragment"
         android:name="com.example.desenrolaai.screens.my_profile.MyProfileFragment"

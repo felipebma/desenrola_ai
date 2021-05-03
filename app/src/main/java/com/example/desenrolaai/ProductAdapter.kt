@@ -1,9 +1,11 @@
 package com.example.desenrolaai
 
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.example.desenrolaai.model.Product
 
@@ -27,5 +29,10 @@ class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
         var layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.product_view, parent, false) as LinearLayout
         return ProductViewHolder(view)
+    }
+
+    fun getFieldInfo(fieldName: String, fieldValue: String): String{
+        val s = SpannableStringBuilder().bold { append(fieldName) }.append(fieldValue)
+        return s.toString()
     }
 }

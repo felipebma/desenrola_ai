@@ -15,7 +15,7 @@ data class Product(
     val ownerName: String? = "",
     val latitude: Double? = 0.0,
     val longitude: Double? = 0.0
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
@@ -26,8 +26,7 @@ data class Product(
         parcel.readString(),
         parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readValue(Double::class.java.classLoader) as? Double
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)

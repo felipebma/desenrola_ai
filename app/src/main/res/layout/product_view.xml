@@ -4,11 +4,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginVertical="10dp">
+
     <TextView
         android:id="@+id/product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
     <TextView
         android:id="@+id/product_categories"
         android:layout_width="match_parent"

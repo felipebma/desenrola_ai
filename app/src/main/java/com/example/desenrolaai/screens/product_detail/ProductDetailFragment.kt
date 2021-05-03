@@ -1,7 +1,6 @@
 package com.example.desenrolaai.screens.product_detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,9 @@ class ProductDetailFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_product_detail, container, false)
-        viewModel = ViewModelProvider(this).get(ProductDetailViewModel::class.java)
+        val viewModelFactory =
+            ProductDetailViewModel.ProductDetailViewModelFactory(ProductDetailFragmentArgs.fromBundle(requireArguments()).product, ProductDetailFragmentArgs.fromBundle(requireArguments()).status)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ProductDetailViewModel::class.java)
         binding.productDetailViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
