@@ -22,16 +22,16 @@ class MapViewModel: ViewModel() {
 
     private fun fetchUser(): User{
         return User(
-            "fbma@cin.ufpe.br",
-            "Felipe",
-            -8.05558,
-            -34.95136
+            email = "fbma@cin.ufpe.br",
+            name = "Felipe",
+            latitude = -8.05558,
+            longitute = -34.95136
         )
     }
 
     private fun fetchProductList() : List<Product>{
-        val product = Product("Bicicleta",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        val product = Product(name = "Bicicleta",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             categories = listOf<String>("Brinquedo", "Veículo"),
             pricePerDay = 10.0,
             latitude = -8.04526287956983,
