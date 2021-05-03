@@ -53,6 +53,7 @@ class BorrowDetailViewModel(borrow: Borrow?, product: Product?) : ViewModel() {
     fun getDescription() = _product.value?.description
     fun getPrice() = "R$ %.2f".format(_product.value?.pricePerDay)
     fun getStartDay(): String = _borrow.value?.startDate!!
+    fun getEndDay(): String = _borrow.value?.endDate!!
 
     fun switchStatus(): Boolean{
         when(status){
