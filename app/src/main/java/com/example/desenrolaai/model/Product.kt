@@ -11,7 +11,6 @@ data class Product(
     val categories: List<String>? = ArrayList(),
     val images: List<String>? = ArrayList(),
     val pricePerDay: Double? = 0.0,
-    val address: String? = "",
     val ownerEmail: String? = "",
     val ownerName: String? = "",
     val latitude: Double? = 0.0,
@@ -25,7 +24,6 @@ data class Product(
         parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
         parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readValue(Double::class.java.classLoader) as? Double
     ) {
@@ -37,7 +35,6 @@ data class Product(
         parcel.writeStringList(categories)
         parcel.writeStringList(images)
         parcel.writeValue(pricePerDay)
-        parcel.writeString(address)
         parcel.writeString(ownerEmail)
         parcel.writeString(ownerName)
         parcel.writeValue(latitude)

@@ -16,15 +16,14 @@ class MapViewModel: ViewModel() {
         get() = _user
 
     init{
-        _products.value = fetchProductList()
         _user.value = fetchUser()
+        _products.value = fetchProductList()
     }
 
     private fun fetchUser(): User{
         return User(
             "fbma@cin.ufpe.br",
             "Felipe",
-            "",
             -8.05558,
             -34.95136
         )
@@ -36,7 +35,9 @@ class MapViewModel: ViewModel() {
             categories = listOf<String>("Brinquedo", "Veículo"),
             pricePerDay = 10.0,
             latitude = -8.04526287956983,
-            longitude = -34.911943550439595
+            longitude = -34.911943550439595,
+            ownerEmail = "lsm5@cin.ufpe.br",
+            ownerName = "Lucas Mendonça"
         )
         return listOf(product)
     }

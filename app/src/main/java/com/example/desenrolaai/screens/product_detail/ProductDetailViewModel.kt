@@ -12,12 +12,10 @@ class ProductDetailViewModel: ViewModel() {
 
     init{
         val categories = listOf<String>("Brinquedo", "Transporte")
-        val address = "Av. Jorn. Aníbal Fernandes, s/n - Cidade Universitária, Recife"
         _product.value = Product(name = "Bicicleta",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
             categories = categories,
             pricePerDay = 10.0,
-            address = address,
             ownerEmail = "fbma@cin.ufpe.br"
         )
     }
@@ -40,10 +38,6 @@ class ProductDetailViewModel: ViewModel() {
 
     fun getPrice(): String{
         return "R$ %.2f".format(_product.value?.pricePerDay)
-    }
-
-    fun getAddress(): String{
-        return _product.value?.address!!
     }
 }
 

@@ -55,18 +55,6 @@
                 android:text="@{productDetailViewModel.categories}"/>
 
             <TextView
-                android:id="@+id/address_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/address" />
-
-            <TextView
-                android:id="@+id/address_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{productDetailViewModel.address}"/>
-
-            <TextView
                 android:id="@+id/price_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
