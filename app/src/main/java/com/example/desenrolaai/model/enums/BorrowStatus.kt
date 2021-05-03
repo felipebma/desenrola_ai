@@ -1,6 +1,6 @@
 package com.example.desenrolaai.model.enums
 
-enum class Status(val status: String) {
+enum class BorrowStatus(val status: String) {
     PENDING("Pending"),
     ACCEPTED("Accepted"),
     REJECTED("Rejected"),

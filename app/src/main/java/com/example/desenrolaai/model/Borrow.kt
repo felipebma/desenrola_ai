@@ -1,6 +1,6 @@
 package com.example.desenrolaai.model
 
-import com.example.desenrolaai.model.enums.Status
+import com.example.desenrolaai.model.enums.BorrowStatus
 import java.util.*
 
 data class Borrow (
@@ -9,5 +9,5 @@ data class Borrow (
     val requester: User,
     val initialDate: Date,
     val duration: Int,
-    var status: Status
+    var status: BorrowStatus
 )
