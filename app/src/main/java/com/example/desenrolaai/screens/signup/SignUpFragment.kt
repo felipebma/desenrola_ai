@@ -55,8 +55,8 @@ class SignUpFragment : Fragment() {
 
     private fun signUp(auth: FirebaseAuth, databaseFirestore: FirebaseFirestore) {
         user.name = binding.nameEdit.text.toString()
-        user.latitude = binding.latitudeEdit.text as Double
-        user.longitude = binding.longitudeEdit.text as Double
+        user.latitude = binding.latitudeEdit.text.toString().toDouble()
+        user.longitude = binding.longitudeEdit.text.toString().toDouble()
         user.email = binding.emailEdit.text.toString()
         user.password = binding.passwordEdit.text.toString()
 
