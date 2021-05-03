@@ -76,7 +76,7 @@
                 android:id="@+id/textInputLayout2"
                 android:layout_width="@dimen/form_width"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
+                app:layout_constraintBottom_toTopOf="@+id/latitude_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -91,21 +91,41 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
+                android:id="@+id/latitude_layout"
                 android:layout_width="@dimen/form_width"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
+                app:layout_constraintBottom_toTopOf="@+id/longitude_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/address_edit"
+                    android:id="@+id/latitude_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/address"
-                    android:textAlignment="center"/>
+                    android:hint="@string/latitude"
+                    android:inputType="numberSigned|numberDecimal"
+                    android:textAlignment="center" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/longitude_layout"
+                android:layout_width="@dimen/form_width"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/latitude_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/longitude_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/longitude"
+                    android:inputType="numberSigned|numberDecimal"
+                    android:textAlignment="center" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -116,7 +136,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+                app:layout_constraintTop_toBottomOf="@+id/longitude_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_edit"

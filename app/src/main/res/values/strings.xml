@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Desenrola Aí</string>
-    <string name="email">Email</string>
-    <string name="password">Senha</string>
+    <string name="email">E-mail:</string>
+    <string name="password">Senha:</string>
     <string name="create_new_account">Não tem conta? Cadastrar</string>
     <string name="login">Entrar</string>
     <string name="logo_img">Logo image</string>
@@ -25,4 +25,6 @@
     <string name="order_borrow">Pedir Empréstimo</string>
     <string name="confirm_borrow">Confirmar Empréstimo</string>
     <string name="end_date">Data de Entrega:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="latitude">Latitude:</string>
 </resources>

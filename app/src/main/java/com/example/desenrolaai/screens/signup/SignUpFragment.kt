@@ -20,7 +20,8 @@ class SignUpFragment : Fragment() {
     data class User(
         var name: String = "",
         var email: String = "",
-        var address: String = "",
+        var latitude: Double = 0.0,
+        var longitude: Double = 0.0,
         var password: String = ""
     )
 
@@ -54,7 +55,8 @@ class SignUpFragment : Fragment() {
 
     private fun signUp(auth: FirebaseAuth, databaseFirestore: FirebaseFirestore) {
         user.name = binding.nameEdit.text.toString()
-        user.address = binding.addressEdit.text.toString()
+        user.latitude = binding.latitudeEdit.text as Double
+        user.longitude = binding.longitudeEdit.text as Double
         user.email = binding.emailEdit.text.toString()
         user.password = binding.passwordEdit.text.toString()
 
@@ -73,7 +75,8 @@ class SignUpFragment : Fragment() {
                 if (task.isSuccessful) {
                     val profile: MutableMap<String, Any> = HashMap()
                     profile["name"] = user.name
-                    profile["address"] = user.address
+                    profile["latitude"] = user.latitude
+                    profile["longitude"] = user.longitude
                     profile["email"] = user.email
 
                     databaseFirestore.collection("users")
