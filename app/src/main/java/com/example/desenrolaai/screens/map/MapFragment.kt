@@ -1,6 +1,7 @@
 package com.example.desenrolaai.screens.map
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,6 +77,10 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+        viewModel.dataFetched.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.i("Map", "Entrou " + viewModel.countFetch)
+            Log.i("Map", "Entrou " + viewModel.products.value)
+            mapFragment?.getMapAsync(callback)
+        })
     }
 }
