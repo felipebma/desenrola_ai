@@ -36,15 +36,6 @@ class SignInFragment : Fragment() {
         )
 
         viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
-
-        binding.emailEdit.doOnTextChanged { text, _, _, _ ->
-            viewModel.email.value = text.toString()
-        }
-
-        binding.passwordEdit.doOnTextChanged { text, _, _, _ ->
-            viewModel.password.value = text.toString()
-        }
-
         binding.signUpText.setOnClickListener {
             it.findNavController().navigate(R.id.action_titleFragment_to_signUpFragment)
         }

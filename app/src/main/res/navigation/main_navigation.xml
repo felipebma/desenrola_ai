@@ -23,11 +23,6 @@
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
-        android:id="@+id/myProfileFragment"
-        android:name="com.example.desenrolaai.screens.my_profile.MyProfileFragment"
-        android:label="Meu Perfil"
-        tools:layout="@layout/fragment_my_profile" />
-    <fragment
         android:id="@+id/productsFragment"
         android:name="com.example.desenrolaai.screens.products.ProductsFragment"
         android:label="Meus Produtos"

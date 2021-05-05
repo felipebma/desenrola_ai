@@ -15,4 +15,8 @@ class SignInViewModel : ViewModel() {
     fun isEmailValid(): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email.value).matches()
     }
+
+    fun isPasswordValid(): Boolean {
+        return password.value?.length!! > 5
+    }
 }
