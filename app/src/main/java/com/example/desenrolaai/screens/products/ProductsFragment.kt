@@ -14,6 +14,7 @@ import com.example.desenrolaai.ProductAdapter
 import com.example.desenrolaai.ProductListener
 import com.example.desenrolaai.R
 import com.example.desenrolaai.databinding.FragmentProductsBinding
+import com.example.desenrolaai.model.Product
 import com.example.desenrolaai.model.enums.ProductDetailStatus
 
 class ProductsFragment : Fragment() {
@@ -27,25 +28,31 @@ class ProductsFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_products, container, false)
         viewModel = ViewModelProvider(this).get(ProductsViewModel::class.java)
-        binding.viewModel = viewModel
-        val adapter = ProductAdapter(ProductListener {
-            Log.d("MovingWith", it.toString())
-            val action = ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(
-                it,
-                ProductDetailStatus.DETAIL
-            )
+        viewModel.dataFetched.observe(viewLifecycleOwner, Observer {
+            binding.viewModel = viewModel
+            val adapter = ProductAdapter(ProductListener {
+                Log.d("MovingWith", it.toString())
+                val action =
+                    ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(
+                        it,
+                        ProductDetailStatus.DETAIL
+                    )
+                NavHostFragment.findNavController(this).navigate(action)
+            })
+            binding.productList.adapter = adapter
+            viewModel.products.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    adapter.submitList(it)
+                }
+            })
+            Log.i("ProductFragment", adapter.currentList.toString())
+            binding.lifecycleOwner = this
+        })
+        binding.addButton.setOnClickListener {
+            val product = Product()
+            val action = ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(product, ProductDetailStatus.ADD)
             NavHostFragment.findNavController(this).navigate(action)
-        })
-        binding.productList.adapter = adapter
-        viewModel.products.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.submitList(it)
-            }
-        })
-        Log.i("ProductFragment", adapter.currentList.toString())
-        binding.lifecycleOwner = this
-
-
+        }
         return binding.root
     }
 }

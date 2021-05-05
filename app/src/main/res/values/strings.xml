@@ -28,4 +28,5 @@
     <string name="longitude">Longitude:</string>
     <string name="latitude">Latitude:</string>
     <string name="status">Status</string>
+    <string name="add_product">ADICIONAR PRODUTO</string>
 </resources>
