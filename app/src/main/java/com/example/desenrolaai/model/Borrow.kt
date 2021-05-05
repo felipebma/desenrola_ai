@@ -54,9 +54,9 @@ data class Borrow(
     fun getPrice(): String {
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val numDays = sdf.parse(endDate).time - sdf.parse(startDate).time
-        return (product.pricePerDay!! * (TimeUnit.DAYS.convert(
+        return "R$ %.2f".format(product.pricePerDay!! * (TimeUnit.DAYS.convert(
             numDays,
             TimeUnit.MILLISECONDS
-        ))).toString()
+        )))
     }
 }

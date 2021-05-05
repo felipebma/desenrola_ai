@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -13,7 +13,7 @@
 
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -27,35 +27,105 @@
             android:text="@{borrow.status.toString()}"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-        <TextView
-            android:id="@+id/product_owner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{borrow.product.ownerName}" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/product_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{borrow.product.name}" />
+            <TextView
+                android:id="@+id/product_owner_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dono: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-        <TextView
-            android:id="@+id/borrow_start_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{borrow.startDate}" />
+            <TextView
+                android:id="@+id/product_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{borrow.product.ownerName}" />
 
-        <TextView
-            android:id="@+id/borrow_end_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{borrow.endDate}" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/borrow_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{borrow.price}" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/product_name_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Produto: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{borrow.product.name}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/borrow_start_date_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data de Início: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/borrow_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{borrow.startDate}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/borrow_end_date_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data de Entrega: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/borrow_end_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{borrow.endDate}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/borrow_price_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Preço Total: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/borrow_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{borrow.price}" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
