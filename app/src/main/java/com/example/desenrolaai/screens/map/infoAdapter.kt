@@ -13,7 +13,7 @@ class infoAdapter(layoutInflater: LayoutInflater) : GoogleMap.InfoWindowAdapter 
     private var popup: View? = null
     private lateinit var inflater: LayoutInflater
 
-    init{
+    init {
         inflater = layoutInflater
     }
 

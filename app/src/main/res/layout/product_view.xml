@@ -24,26 +24,26 @@
             android:id="@+id/product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:text="@{product.name}"/>
+            android:text="@{product.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <TextView
             android:id="@+id/product_categories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{product.categories.toString()}"/>
+            android:text="@{product.categories.toString()}" />
 
         <TextView
             android:id="@+id/product_desciption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{product.condensedDescription}"/>
+            android:text="@{product.condensedDescription}" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_height="2dp"
-            android:background="#c0c0c0"/>
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
 
     </LinearLayout>
 </layout>

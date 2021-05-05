@@ -2,23 +2,20 @@ package com.example.desenrolaai.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.core.util.rangeTo
 import androidx.versionedparcelable.VersionedParcelize
 import com.example.desenrolaai.model.enums.BorrowStatus
-import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 @VersionedParcelize
-data class Borrow (
+data class Borrow(
     val id: Int,
     val product: Product,
     val requesterEmail: String,
     val startDate: String,
     val endDate: String,
     var status: BorrowStatus
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readParcelable(Product::class.java.classLoader)!!,
@@ -26,8 +23,7 @@ data class Borrow (
         parcel.readString()!!,
         parcel.readString()!!,
         TODO("status")
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
@@ -51,9 +47,12 @@ data class Borrow (
         }
     }
 
-    fun getPrice(): String{
+    fun getPrice(): String {
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val numDays = sdf.parse(endDate).time - sdf.parse(startDate).time
-        return (product.pricePerDay!!*(TimeUnit.DAYS.convert(numDays, TimeUnit.MILLISECONDS))).toString()
+        return (product.pricePerDay!! * (TimeUnit.DAYS.convert(
+            numDays,
+            TimeUnit.MILLISECONDS
+        ))).toString()
     }
 }

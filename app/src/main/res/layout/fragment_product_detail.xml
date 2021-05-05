@@ -4,6 +4,7 @@
     tools:context=".screens.product_detail.ProductDetailFragment">
 
     <data>
+
         <variable
             name="productDetailViewModel"
             type="com.example.desenrolaai.screens.product_detail.ProductDetailViewModel" />

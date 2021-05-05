@@ -9,7 +9,7 @@
         android:id="@+id/productDetailFragment"
         android:name="com.example.desenrolaai.screens.product_detail.ProductDetailFragment"
         android:label="Detalhes do Produto"
-        tools:layout="@layout/fragment_product_detail" >
+        tools:layout="@layout/fragment_product_detail">
         <argument
             android:name="product"
             app:argType="com.example.desenrolaai.model.Product" />
@@ -31,7 +31,7 @@
         android:id="@+id/productsFragment"
         android:name="com.example.desenrolaai.screens.products.ProductsFragment"
         android:label="Meus Produtos"
-        tools:layout="@layout/fragment_products" >
+        tools:layout="@layout/fragment_products">
         <action
             android:id="@+id/action_productsFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
@@ -65,7 +65,7 @@
         android:id="@+id/borrowsFragment"
         android:name="com.example.desenrolaai.screens.borrows.BorrowsFragment"
         android:label="fragment_borrows"
-        tools:layout="@layout/fragment_borrows" >
+        tools:layout="@layout/fragment_borrows">
         <action
             android:id="@+id/action_borrowsFragment_to_borrowDetailFragment"
             app:destination="@id/borrowDetailFragment" />

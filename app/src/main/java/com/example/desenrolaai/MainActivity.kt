@@ -15,7 +15,7 @@ import com.example.desenrolaai.screens.map.MapFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var firebase : Firebase
+    private lateinit var firebase: Firebase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = binding.mainDrawerLayout
         var navView = binding.mainDrawerNavView
 
-        navView.menu.findItem(R.id.logoutMenu).setOnMenuItemClickListener{ menuItem ->
+        navView.menu.findItem(R.id.logoutMenu).setOnMenuItemClickListener { menuItem ->
             finish()
             firebase.singOut()
             startActivity(Intent(this, LoginActivity::class.java))

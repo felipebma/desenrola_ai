@@ -8,29 +8,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.lifecycle.viewModelScope
 import com.example.desenrolaai.R
-import com.example.desenrolaai.data.db.AppDatabase
-import com.example.desenrolaai.data.db.dao.UserDAO
 import com.example.desenrolaai.databinding.FragmentSignUpBinding
 import com.example.desenrolaai.model.User
-import com.example.desenrolaai.repository.DatabaseDataSourceUser
-import com.example.desenrolaai.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 
 class SignUpFragment : Fragment() {
 
     lateinit var binding: FragmentSignUpBinding
-    private lateinit var user : User
+    private lateinit var user: User
     private var mAuth: FirebaseAuth? = null
     private lateinit var password: String
-    private lateinit var repository: UserRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,7 +100,6 @@ class SignUpFragment : Fragment() {
                 }
             }
 
-        addUser(user.name!!, user.email!!, user.latitude!!, user.longitude!!)
 
 
     }
@@ -117,21 +107,6 @@ class SignUpFragment : Fragment() {
     fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
-
-    fun addUser(name: String, email: String, latitude: Double, longitude: Double) = viewLifecycleOwner.lifecycleScope.launch {
-        val userDao: UserDAO = AppDatabase.getInstance(requireContext()).userDAO
-        val repository: UserRepository = DatabaseDataSourceUser(userDao)
-
-        try{
-            val id = repository.insertUser(name, email, latitude, longitude)
-            if(id>0){
-                Log.d("LUCAS", id.toString())
-            }
-        }catch(erro: Error){
-            Log.d("LUCAS", erro.toString())
-        }
-    }
-
 
 
 }

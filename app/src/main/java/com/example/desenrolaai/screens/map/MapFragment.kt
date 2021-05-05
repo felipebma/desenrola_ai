@@ -1,20 +1,20 @@
 package com.example.desenrolaai.screens.map
 
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.desenrolaai.R
 import com.example.desenrolaai.model.Product
-import com.google.android.gms.maps.*
-
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
@@ -30,22 +30,30 @@ class MapFragment : Fragment() {
         val userPos = LatLng(viewModel.user.value?.latitude!!, viewModel.user.value?.longitude!!)
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userPos, 15.0f))
         googleMap.setOnInfoWindowClickListener {
-            Toast.makeText(context, "Produto Escolhido: " + (it.tag as Product).name, Toast.LENGTH_SHORT).show()
-            selectProduct(it.tag as Product);
+            Toast.makeText(
+                context,
+                "Produto Escolhido: " + (it.tag as Product).name,
+                Toast.LENGTH_SHORT
+            ).show()
+            selectProduct(it.tag as Product)
         }
     }
 
-    fun selectProduct(product: Product){
+    fun selectProduct(product: Product) {
         val action = MapFragmentDirections.actionMapFragmentToBorrowDetailFragment()
         action.product = product
         NavHostFragment.findNavController(this).navigate(action)
     }
 
-    fun addMarker(googleMap: GoogleMap, product: Product){
+    fun addMarker(googleMap: GoogleMap, product: Product) {
         val pos = LatLng(product.latitude!!, product.longitude!!)
         val snippet = StringJoiner("\n")
         val maxLength = 70
-        val description = if(product.description.length <= maxLength) product.description else product.description.substring(0, maxLength)+"..."
+        val description =
+            if (product.description.length <= maxLength) product.description else product.description.substring(
+                0,
+                maxLength
+            ) + "..."
         snippet.add("Descrição: $description")
         snippet.add("Preço por dia: R$%.2f".format(product.pricePerDay))
         val marker = googleMap.addMarker(

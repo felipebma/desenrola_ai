@@ -56,7 +56,8 @@ data class Product(
         }
     }
 
-    fun getCondensedDescription(): String{
-        return if(description.length <= 100) description else description.substring(0,100).trim()+"..."
+    fun getCondensedDescription(): String {
+        return if (description.length <= 100) description else description.substring(0, 100)
+            .trim() + "..."
     }
 }

@@ -3,10 +3,8 @@ package com.example.desenrolaai.screens.borrow_detail
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.desenrolaai.model.Borrow
 import com.example.desenrolaai.model.Product
-import com.example.desenrolaai.model.User
 import com.example.desenrolaai.model.enums.BorrowDetailFragmentStatus
 import com.example.desenrolaai.model.enums.BorrowStatus
 import java.text.SimpleDateFormat
@@ -30,11 +28,18 @@ class BorrowDetailViewModel(borrow: Borrow?, product: Product?) : ViewModel() {
     }
 
     private fun fetchBorrow(borrow: Borrow?, product: Product?): Borrow {
-        if(borrow == null){
+        if (borrow == null) {
             val startDate = sdf.format(Date())
             val endDate = sdf.format(Date())
             status = BorrowDetailFragmentStatus.DETAIL
-            return Borrow(1, product!!, "fbma@cin.ufpe.br", startDate, endDate, BorrowStatus.PENDING)
+            return Borrow(
+                1,
+                product!!,
+                "fbma@cin.ufpe.br",
+                startDate,
+                endDate,
+                BorrowStatus.PENDING
+            )
         }
         status = BorrowDetailFragmentStatus.READ
         return borrow
@@ -55,8 +60,8 @@ class BorrowDetailViewModel(borrow: Borrow?, product: Product?) : ViewModel() {
     fun getStartDay(): String = _borrow.value?.startDate!!
     fun getEndDay(): String = _borrow.value?.endDate!!
 
-    fun switchStatus(): Boolean{
-        when(status){
+    fun switchStatus(): Boolean {
+        when (status) {
             BorrowDetailFragmentStatus.DETAIL -> {
                 status = BorrowDetailFragmentStatus.CONFIRM
                 Log.i("BorrowDetailViewModel", "Switch Status")
@@ -69,7 +74,7 @@ class BorrowDetailViewModel(borrow: Borrow?, product: Product?) : ViewModel() {
         return false
     }
 
-    fun saveBorrow(): Boolean{
+    fun saveBorrow(): Boolean {
         //TODO
         return true
     }

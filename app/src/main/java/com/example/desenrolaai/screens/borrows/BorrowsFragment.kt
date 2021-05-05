@@ -10,11 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.desenrolaai.*
+import com.example.desenrolaai.BorrowAdapter
+import com.example.desenrolaai.BorrowListener
+import com.example.desenrolaai.R
 import com.example.desenrolaai.databinding.FragmentBorrowsBinding
-import com.example.desenrolaai.databinding.FragmentProductsBinding
-import com.example.desenrolaai.model.enums.ProductDetailStatus
 
 class BorrowsFragment : Fragment() {
 
