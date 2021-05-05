@@ -113,6 +113,14 @@
                     android:text="@{viewModel.startDay}" />
 
                 <TextView
+                    android:id="@+id/start_date_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="date"
+                    android:text="@{viewModel.startDay}" />
+
+                <TextView
                     android:id="@+id/number_of_days_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -126,6 +134,33 @@
                     android:ems="10"
                     android:inputType="date"
                     android:text="@{viewModel.endDay}" />
+
+                <TextView
+                    android:id="@+id/end_date_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="date"
+                    android:text="@{viewModel.endDay}" />
+                <LinearLayout
+                    android:id="@+id/status_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/status_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/status"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                    <TextView
+                        android:id="@+id/status_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.borrowStatus.toString()}" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

@@ -1,17 +1,23 @@
 package com.example.desenrolaai.screens.borrows
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.desenrolaai.model.Borrow
-import com.example.desenrolaai.model.Product
 import com.example.desenrolaai.model.enums.BorrowStatus
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 class BorrowsViewModel : ViewModel() {
 
-    private val _borrows = MutableLiveData<List<Borrow>>()
-    val borrows: LiveData<List<Borrow>>
+    private val _borrows = MutableLiveData<MutableList<Borrow>>()
+    val borrows: LiveData<MutableList<Borrow>>
         get() = _borrows
+
+    var dataFetched = MutableLiveData<Boolean>()
 
     init {
         getBorrowList()
@@ -19,44 +25,47 @@ class BorrowsViewModel : ViewModel() {
 
 
     private fun getBorrowList() {
-        val products = mutableListOf(
-            Product(
-                1,
-                "Bicicleta",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                categories = listOf("Brinquedo", "Veículo") as MutableList<String>,
-                pricePerDay = 10.0,
-                latitude = -8.045238005758899,
-                longitude = -34.911953177263506
-            ),
-            Product(
-                1,
-                "Celtinha 2006",
-                "Carrin brabo",
-                categories = listOf("Automóvel", "Veículo") as MutableList<String>,
-                pricePerDay = 10.0,
-                latitude = 0.0,
-                longitude = 0.0
-            )
-        )
 
-        _borrows.value = mutableListOf(
-            Borrow(
-                1,
-                products[0],
-                "fbma@cin.ufpe.br",
-                "05/05/2021",
-                "07/05/2021",
-                BorrowStatus.PENDING
-            ),
-            Borrow(
-                1,
-                products[1],
-                "lsm5@cin.ufpe.br",
-                "07/05/2021",
-                "08/05/2021",
-                BorrowStatus.ACCEPTED
-            )
-        )
+        val db = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        db.collection("borrows")
+            .whereEqualTo("requesterEmail", currentUser.email)
+            .get()
+            .addOnSuccessListener { documents ->
+                _borrows.value = mutableListOf()
+                for (document in documents) {
+                    Log.d("Firebase", "${document.id} => ${document.data}")
+                    val borrow = document.toObject(Borrow::class.java)
+                    updateStatus(borrow)
+                    _borrows.value?.add(borrow)
+                }
+                dataFetched.value = true
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Firebase", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun updateStatus(borrow: Borrow){
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        when(borrow.status){
+            BorrowStatus.ACCEPTED -> {
+                if(sdf.parse(borrow.endDate).after(Date())){
+                    borrow.status = BorrowStatus.LATE
+                    return
+                }
+                if(sdf.parse(borrow.startDate).before(Date())){
+                    borrow.status = BorrowStatus.RUNNING
+                    return
+                }
+            }
+            BorrowStatus.RUNNING -> {
+                if(sdf.parse(borrow.endDate).after(Date())){
+                    borrow.status = BorrowStatus.LATE
+                    return
+                }
+            }
+        }
     }
 }

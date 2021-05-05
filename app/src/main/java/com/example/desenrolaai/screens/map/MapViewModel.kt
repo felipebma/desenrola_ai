@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.desenrolaai.model.Product
 import com.example.desenrolaai.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MapViewModel : ViewModel() {
@@ -37,8 +39,10 @@ class MapViewModel : ViewModel() {
 
     private fun fetchUser() {
         val db = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
         db.collection("users")
-            .whereEqualTo("email", "lucas@gmail.com")
+            .whereNotEqualTo("email", currentUser.email)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {

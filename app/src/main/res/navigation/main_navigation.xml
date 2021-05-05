@@ -55,11 +55,16 @@
             android:defaultValue="@null"
             app:argType="com.example.desenrolaai.model.Borrow"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_borrowDetailFragment_to_borrowsFragment"
+            app:destination="@id/borrowsFragment"
+            app:popUpTo="@id/mapFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/borrowsFragment"
         android:name="com.example.desenrolaai.screens.borrows.BorrowsFragment"
-        android:label="fragment_borrows"
+        android:label="Meus Empréstimos"
         tools:layout="@layout/fragment_borrows">
         <action
             android:id="@+id/action_borrowsFragment_to_borrowDetailFragment"

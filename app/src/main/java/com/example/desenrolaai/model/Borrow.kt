@@ -2,19 +2,23 @@ package com.example.desenrolaai.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.PrimaryKey
 import androidx.versionedparcelable.VersionedParcelize
 import com.example.desenrolaai.model.enums.BorrowStatus
+import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
 
+@Serializable
 @VersionedParcelize
 data class Borrow(
-    val id: Int,
-    val product: Product,
-    val requesterEmail: String,
-    val startDate: String,
-    val endDate: String,
-    var status: BorrowStatus
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val product: Product = Product(),
+    val requesterEmail: String = "",
+    var startDate: String = "",
+    var endDate: String = "",
+    var status: BorrowStatus = BorrowStatus.PENDING
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
