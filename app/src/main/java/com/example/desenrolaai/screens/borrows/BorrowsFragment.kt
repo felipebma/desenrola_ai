@@ -27,21 +27,24 @@ class BorrowsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_borrows, container, false)
         viewModel = ViewModelProvider(this).get(BorrowsViewModel::class.java)
         viewModel.dataFetched.observe(viewLifecycleOwner, Observer {
-            binding.viewModel = viewModel
-            val adapter = BorrowAdapter(BorrowListener {
-                Log.d("MovingWith", it.toString())
-                val action = BorrowsFragmentDirections.actionBorrowsFragmentToBorrowDetailFragment()
-                action.borrow = it
-                NavHostFragment.findNavController(this).navigate(action)
-            })
-            binding.borrowList.adapter = adapter
-            viewModel.borrows.observe(viewLifecycleOwner, Observer {
-                it?.let {
-                    adapter.submitList(it)
-                }
-            })
-            Log.i("BorrowFragment", adapter.currentList.toString())
-            binding.lifecycleOwner = this
+            if(viewModel.dataFetched.value!!){
+                Log.i("Borrow", "Entrou")
+                binding.viewModel = viewModel
+                val adapter = BorrowAdapter(BorrowListener {
+                    Log.d("MovingWith", it.toString())
+                    val action = BorrowsFragmentDirections.actionBorrowsFragmentToBorrowDetailFragment()
+                    action.borrow = it
+                    NavHostFragment.findNavController(this).navigate(action)
+                })
+                binding.borrowList.adapter = adapter
+                viewModel.borrows.observe(viewLifecycleOwner, Observer {
+                    it?.let {
+                        adapter.submitList(it)
+                    }
+                })
+                Log.i("BorrowFragment", adapter.currentList.toString())
+                binding.lifecycleOwner = this
+            }
         })
         return binding.root
     }

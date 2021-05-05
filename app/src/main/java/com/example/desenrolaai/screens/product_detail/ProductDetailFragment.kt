@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -59,7 +60,7 @@ class ProductDetailFragment : Fragment() {
                 binding.latitudeLayout.visibility = View.GONE
                 binding.longitudeLayout.visibility = View.GONE
                 binding.confirmButton.text = "Editar"
-                binding.rejectButton.text = "Excluir"
+                binding.rejectButton.visibility = View.GONE
             }
             else -> {
                 binding.nameEdit.visibility = View.VISIBLE
@@ -72,8 +73,14 @@ class ProductDetailFragment : Fragment() {
                 binding.priceInfo.visibility = View.GONE
                 binding.latitudeLayout.visibility = View.VISIBLE
                 binding.longitudeLayout.visibility = View.VISIBLE
+                binding.rejectButton.visibility = View.VISIBLE
                 binding.confirmButton.text = "Salvar"
                 binding.rejectButton.text = "Voltar"
+                if(viewModel.getStatus() == ProductDetailStatus.ADD){
+                    (activity as AppCompatActivity).supportActionBar?.title = "Adicionar Produto"
+                }else{
+                    (activity as AppCompatActivity).supportActionBar?.title = "Editar Produto"
+                }
             }
         }
     }
