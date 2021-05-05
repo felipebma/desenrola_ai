@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.example.desenrolaai.BorrowListener" />
+
+        <variable
+            name="borrow"
+            type="com.example.desenrolaai.model.Borrow" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="@{()->clickListener.onClick(borrow)}"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/borrow_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{borrow.status.toString()}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <TextView
+            android:id="@+id/product_owner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{borrow.product.ownerName}" />
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{borrow.product.name}" />
+
+        <TextView
+            android:id="@+id/borrow_start_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{borrow.startDate}" />
+
+        <TextView
+            android:id="@+id/borrow_end_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{borrow.endDate}" />
+
+        <TextView
+            android:id="@+id/borrow_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{borrow.price}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
+
+    </LinearLayout>
+</layout>

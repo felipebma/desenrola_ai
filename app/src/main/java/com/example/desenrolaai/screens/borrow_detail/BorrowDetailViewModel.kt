@@ -34,7 +34,7 @@ class BorrowDetailViewModel(borrow: Borrow?, product: Product?) : ViewModel() {
             val startDate = sdf.format(Date())
             val endDate = sdf.format(Date())
             status = BorrowDetailFragmentStatus.DETAIL
-            return Borrow(product!!, "fbma@cin.ufpe.br", startDate, endDate, BorrowStatus.PENDING)
+            return Borrow(1, product!!, "fbma@cin.ufpe.br", startDate, endDate, BorrowStatus.PENDING)
         }
         status = BorrowDetailFragmentStatus.READ
         return borrow

@@ -61,4 +61,13 @@
             app:argType="com.example.desenrolaai.model.Borrow"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/borrowsFragment"
+        android:name="com.example.desenrolaai.screens.borrows.BorrowsFragment"
+        android:label="fragment_borrows"
+        tools:layout="@layout/fragment_borrows" >
+        <action
+            android:id="@+id/action_borrowsFragment_to_borrowDetailFragment"
+            app:destination="@id/borrowDetailFragment" />
+    </fragment>
 </navigation>

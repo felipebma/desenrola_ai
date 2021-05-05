@@ -9,6 +9,9 @@
         android:id="@+id/productsFragment"
         android:title="@string/myProducts" />
     <item
+        android:id="@+id/borrowsFragment"
+        android:title="Meus Empréstimos" />
+    <item
         android:id="@+id/logoutMenu"
         android:title="@string/sign_out" />
 </menu>
