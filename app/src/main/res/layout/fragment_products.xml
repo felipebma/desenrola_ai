@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".screens.products.ProductsFragment">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.desenrolaai.screens.products.ProductsViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/product_list"

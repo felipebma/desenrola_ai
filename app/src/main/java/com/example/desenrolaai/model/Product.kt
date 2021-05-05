@@ -6,6 +6,7 @@ import androidx.versionedparcelable.VersionedParcelize
 
 @VersionedParcelize
 data class Product(
+    var id: Int,
     var name: String,
     var description: String,
     val categories: List<String>? = ArrayList(),
@@ -17,6 +18,7 @@ data class Product(
     val longitude: Double? = 0.0
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.createStringArrayList(),
@@ -29,6 +31,7 @@ data class Product(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeString(description)
         parcel.writeStringList(categories)

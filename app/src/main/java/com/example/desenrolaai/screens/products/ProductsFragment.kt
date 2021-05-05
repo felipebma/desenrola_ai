@@ -9,9 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.desenrolaai.ProductAdapter
+import com.example.desenrolaai.ProductListener
 import com.example.desenrolaai.R
 import com.example.desenrolaai.databinding.FragmentProductsBinding
+import com.example.desenrolaai.model.enums.ProductDetailStatus
 
 class ProductsFragment : Fragment() {
 
@@ -23,15 +27,24 @@ class ProductsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_products, container, false)
-        val adapter = ProductAdapter()
-        binding.productList.adapter = adapter
-        binding.lifecycleOwner = this
         viewModel = ViewModelProvider(this).get(ProductsViewModel::class.java)
+        binding.viewModel = viewModel
+
+        val adapter = ProductAdapter(ProductListener {
+            viewModel.onProductClicked(it)
+            val action = ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(it, ProductDetailStatus.DETAIL)
+            NavHostFragment.findNavController(this).navigate(action)
+        })
+        binding.productList.adapter = adapter
         viewModel.products.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.data = it
+                Log.i("ProductFragment", "Entrou aqui")
+                adapter.submitList(it)
+                Log.i("ProductFragment", adapter.currentList.toString())
             }
         })
+        Log.i("ProductFragment", adapter.currentList.toString())
+        binding.lifecycleOwner = this
 
 
         return binding.root
