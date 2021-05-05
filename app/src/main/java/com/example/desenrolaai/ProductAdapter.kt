@@ -3,6 +3,7 @@ package com.example.desenrolaai
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ExpandableListView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.text.bold
@@ -30,9 +31,8 @@ class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
         val view = layoutInflater.inflate(R.layout.product_view, parent, false) as LinearLayout
         return ProductViewHolder(view)
     }
+}
 
-    fun getFieldInfo(fieldName: String, fieldValue: String): String{
-        val s = SpannableStringBuilder().bold { append(fieldName) }.append(fieldValue)
-        return s.toString()
-    }
+class ProductListener(val clickListener: (product: Product) -> Unit){
+    fun onClick(product: Product) = clickListener(product)
 }

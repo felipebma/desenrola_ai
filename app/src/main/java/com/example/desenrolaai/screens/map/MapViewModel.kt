@@ -1,31 +1,40 @@
 package com.example.desenrolaai.screens.map
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.desenrolaai.model.Product
 import com.example.desenrolaai.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
-class MapViewModel: ViewModel() {
-    val _products = MutableLiveData<MutableList<Product>>()
-    val _user = MutableLiveData<User>()
+class MapViewModel : ViewModel() {
+    private val _products = MutableLiveData<MutableList<Product>>()
+    val products: LiveData<MutableList<Product>>
+        get() = _products
 
-    init{
-        //_user.value = fetchUser()
-        //_products.value = fetchProductList()
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _user
+
+    init {
+        fetchUser()
+        fetchProductList()
     }
 
-    private fun fetchUser(): User{
-        return User(
+    private fun fetchUser(){
+        _user.value = User(
             email = "fbma@cin.ufpe.br",
             name = "Felipe",
             latitude = -8.05558,
-            longitute = -34.95136
+            longitude = -34.95136
         )
     }
 
-    private fun fetchProductList() : List<Product>{
-        val product = Product(name = "Bicicleta",
+    private fun fetchProductList(){
+        val product = Product(
+            name = "Bicicleta",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             categories = listOf<String>("Brinquedo", "Veículo"),
             pricePerDay = 10.0,
@@ -34,6 +43,6 @@ class MapViewModel: ViewModel() {
             ownerEmail = "lsm5@cin.ufpe.br",
             ownerName = "Lucas Mendonça"
         )
-        return listOf(product)
+        _products.value = listOf(product) as MutableList<Product>
     }
 }
