@@ -36,7 +36,8 @@ class BorrowsViewModel : ViewModel() {
                 _borrows.value = mutableListOf()
                 for (document in documents) {
                     Log.d("Firebase", "${document.id} => ${document.data}")
-                    val borrow = document.toObject(Borrow::class.java)
+                    var borrow = document.toObject(Borrow::class.java)
+                    borrow.id = document.id
                     updateStatus(borrow)
                     _borrows.value?.add(borrow)
                 }

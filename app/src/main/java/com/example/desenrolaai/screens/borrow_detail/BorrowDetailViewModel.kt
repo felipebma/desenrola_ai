@@ -42,7 +42,7 @@ class BorrowDetailViewModel(borrow: Borrow?, product: Product?) : ViewModel() {
             val auth = FirebaseAuth.getInstance().currentUser
             status = BorrowDetailFragmentStatus.DETAIL
             return Borrow(
-                0,
+                "",
                 product!!,
                 auth.email,
                 startDate,

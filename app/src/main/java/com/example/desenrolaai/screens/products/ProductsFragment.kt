@@ -46,7 +46,7 @@ class ProductsFragment : Fragment() {
                 }
             })
             Log.i("ProductFragment", adapter.currentList.toString())
-            binding.lifecycleOwner = this
+            binding.lifecycleOwner = viewLifecycleOwner
         })
         binding.addButton.setOnClickListener {
             val product = Product()

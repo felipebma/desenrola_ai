@@ -13,15 +13,15 @@ import java.util.concurrent.TimeUnit
 @VersionedParcelize
 data class Borrow(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val product: Product = Product(),
-    val requesterEmail: String = "",
+    var id: String = "",
+    var product: Product = Product(),
+    var requesterEmail: String = "",
     var startDate: String = "",
     var endDate: String = "",
     var status: BorrowStatus = BorrowStatus.PENDING
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
+        parcel.readString()!!,
         parcel.readParcelable(Product::class.java.classLoader)!!,
         parcel.readString()!!,
         parcel.readString()!!,
@@ -30,7 +30,7 @@ data class Borrow(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
+        parcel.writeString(id)
         parcel.writeParcelable(product, flags)
         parcel.writeString(requesterEmail)
         parcel.writeString(startDate)

@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 @VersionedParcelize
 data class Product(
-    var id: Int = 0,
+    var id: String = "",
     var name: String = "",
     var description: String = "",
     var categories: MutableList<String>? = ArrayList(),
@@ -19,7 +19,7 @@ data class Product(
     var longitude: Double? = 0.0
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
+        parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.createStringArrayList(),
@@ -31,7 +31,7 @@ data class Product(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
+        parcel.writeString(id)
         parcel.writeString(name)
         parcel.writeString(description)
         parcel.writeStringList(categories)

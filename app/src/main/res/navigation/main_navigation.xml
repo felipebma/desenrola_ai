@@ -34,7 +34,7 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.desenrolaai.screens.map.MapFragment"
-        android:label="Mapa"
+        android:label="Selecione Um Produto"
         tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_mapFragment_to_borrowDetailFragment"

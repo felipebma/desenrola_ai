@@ -27,6 +27,7 @@ class ProductsViewModel : ViewModel() {
         val db = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
+        Log.i("Product List", currentUser.email)
         db.collection("products")
             .whereEqualTo("ownerEmail", currentUser.email)
             .get()
