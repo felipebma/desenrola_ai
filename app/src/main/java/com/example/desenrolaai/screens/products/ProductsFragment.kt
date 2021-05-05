@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.desenrolaai.ProductAdapter
 import com.example.desenrolaai.ProductListener
 import com.example.desenrolaai.R
@@ -29,18 +29,18 @@ class ProductsFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_products, container, false)
         viewModel = ViewModelProvider(this).get(ProductsViewModel::class.java)
         binding.viewModel = viewModel
-
         val adapter = ProductAdapter(ProductListener {
-            viewModel.onProductClicked(it)
-            val action = ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(it, ProductDetailStatus.DETAIL)
+            Log.d("MovingWith", it.toString())
+            val action = ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(
+                it,
+                ProductDetailStatus.DETAIL
+            )
             NavHostFragment.findNavController(this).navigate(action)
         })
         binding.productList.adapter = adapter
         viewModel.products.observe(viewLifecycleOwner, Observer {
             it?.let {
-                Log.i("ProductFragment", "Entrou aqui")
                 adapter.submitList(it)
-                Log.i("ProductFragment", adapter.currentList.toString())
             }
         })
         Log.i("ProductFragment", adapter.currentList.toString())

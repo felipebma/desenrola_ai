@@ -3,25 +3,25 @@ package com.example.desenrolaai.model
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.versionedparcelable.VersionedParcelize
+import kotlinx.serialization.Serializable
 
+@Serializable
 @VersionedParcelize
 data class Product(
-    var id: Int,
-    var name: String,
-    var description: String,
-    val categories: List<String>? = ArrayList(),
-    val images: List<String>? = ArrayList(),
-    val pricePerDay: Double? = 0.0,
-    val ownerEmail: String? = "",
-    val ownerName: String? = "",
-    val latitude: Double? = 0.0,
-    val longitude: Double? = 0.0
+    var id: Int = 0,
+    var name: String = "",
+    var description: String = "",
+    var categories: MutableList<String>? = ArrayList(),
+    var pricePerDay: Double? = 0.0,
+    var ownerEmail: String? = "",
+    var ownerName: String? = "",
+    var latitude: Double? = 0.0,
+    var longitude: Double? = 0.0
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.createStringArrayList(),
         parcel.createStringArrayList(),
         parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readString(),
@@ -35,7 +35,6 @@ data class Product(
         parcel.writeString(name)
         parcel.writeString(description)
         parcel.writeStringList(categories)
-        parcel.writeStringList(images)
         parcel.writeValue(pricePerDay)
         parcel.writeString(ownerEmail)
         parcel.writeString(ownerName)
@@ -55,5 +54,9 @@ data class Product(
         override fun newArray(size: Int): Array<Product?> {
             return arrayOfNulls(size)
         }
+    }
+
+    fun getCondensedDescription(): String{
+        return if(description.length <= 100) description else description.substring(0,100).trim()+"..."
     }
 }

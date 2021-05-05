@@ -29,7 +29,13 @@
                 android:id="@+id/name_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{productDetailViewModel.name}"/>
+                android:text="@{productDetailViewModel.name}" />
+
+            <EditText
+                android:id="@+id/name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={productDetailViewModel.editName}" />
 
             <TextView
                 android:id="@+id/description_textView"
@@ -42,7 +48,13 @@
                 android:id="@+id/description_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{productDetailViewModel.description}"/>
+                android:text="@{productDetailViewModel.description}" />
+
+            <EditText
+                android:id="@+id/description_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={productDetailViewModel.editDescription}" />
 
             <TextView
                 android:id="@+id/categories_textView"
@@ -55,7 +67,13 @@
                 android:id="@+id/categories_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{productDetailViewModel.categories}"/>
+                android:text="@{productDetailViewModel.categories}" />
+
+            <EditText
+                android:id="@+id/categories_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={productDetailViewModel.editCategories}" />
 
             <TextView
                 android:id="@+id/price_textView"
@@ -68,33 +86,53 @@
                 android:id="@+id/price_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{productDetailViewModel.price}"/>
+                android:text="@{productDetailViewModel.formattedPrice}" />
 
-            <TextView
-                android:id="@+id/latitude_textView"
+            <EditText
+                android:id="@+id/price_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/latitude"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:text="@={productDetailViewModel.editPrice}" />
 
-            <TextView
-                android:id="@+id/latitude_info"
+            <LinearLayout
+                android:id="@+id/latitude_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{productDetailViewModel.latitude}"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/longitude_textView"
+                <TextView
+                    android:id="@+id/latitude_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/latitude"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                <EditText
+                    android:id="@+id/latitude_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={productDetailViewModel.editLatitude}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/longitude_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/longitude"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/longitude_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{productDetailViewModel.longitude}"/>
+                <TextView
+                    android:id="@+id/longitude_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/longitude"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                <EditText
+                    android:id="@+id/longitude_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={productDetailViewModel.editLongitude}" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

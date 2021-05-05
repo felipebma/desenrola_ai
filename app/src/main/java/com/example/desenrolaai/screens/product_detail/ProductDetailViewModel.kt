@@ -9,11 +9,13 @@ import java.util.*
 
 class ProductDetailViewModel(product: Product, status: ProductDetailStatus) : ViewModel() {
     private val _product = MutableLiveData<Product>()
+    private val _editProduct = MutableLiveData<Product>()
 
     private var _status = status
 
     init {
         _product.value = product
+        _editProduct.value = product.copy()
     }
 
     fun switchStatus(confirm: Boolean): Boolean{
@@ -45,6 +47,8 @@ class ProductDetailViewModel(product: Product, status: ProductDetailStatus) : Vi
     }
 
     fun getStatus() = _status
+
+
     fun getName() = _product.value?.name!!
     fun getDescription() = _product.value?.description!!
     fun getCategories(): String {
@@ -54,9 +58,36 @@ class ProductDetailViewModel(product: Product, status: ProductDetailStatus) : Vi
         }
         return str.toString()
     }
-    fun getPrice() = "R$ %.2f".format(_product.value?.pricePerDay)
+    fun getFormattedPrice() = "R$ %.2f".format(_product.value?.pricePerDay)
     fun getLatitude() = _product.value?.latitude.toString()
     fun getLongitude() = _product.value?.longitude.toString()
+
+    fun getEditName() = _product.value?.name!!
+    fun setEditName(name: String){ _product.value?.name = name}
+    fun getEditDescription() = _product.value?.description!!
+    fun setEditDescription(description: String){ _product.value?.description = description}
+    fun getEditCategories(): String {
+        val str = StringJoiner(" | ")
+        _product.value?.categories?.forEach {
+            str.add(it)
+        }
+        return str.toString()
+    }
+    fun setEditCategories(categories : String){
+        _product.value?.categories = categories.split(" | ") as MutableList<String>
+    }
+    fun getEditPrice() = "%.2f".format(_product.value?.pricePerDay)
+    fun setEditPrice(price: String){
+        _product.value?.pricePerDay = price.toDouble()
+    }
+    fun getEditLatitude() = _product.value?.latitude.toString()
+    fun setEditLatitude(latitude: String){
+        _product.value?.latitude = latitude.toDouble()
+    }
+    fun getEditLongitude() = _product.value?.longitude.toString()
+    fun setEditLongitude(longitude: String){
+        _product.value?.longitude = longitude.toDouble()
+    }
 
     class ProductDetailViewModelFactory(private val product: Product, private val status: ProductDetailStatus) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
