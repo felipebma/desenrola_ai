@@ -36,6 +36,7 @@ class ProductsViewModel : ViewModel() {
                 for (document in documents) {
                     Log.d("Firebase", "${document.id} => ${document.data}")
                     val product = document.toObject(Product::class.java)
+                    product.id = document.id
                     _products.value?.add(product)
                 }
                 dataFetched.value = true

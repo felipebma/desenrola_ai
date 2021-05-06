@@ -56,7 +56,7 @@ class ProductDetailViewModel(product: Product, status: ProductDetailStatus) : Vi
     private fun saveEdit() {
         if(!validProduct()) return
         updateProduct()
-        db.collection("products").document(_product.value?.id!!).set(_product).addOnSuccessListener {
+        db.collection("products").document(_product.value?.id!!).set(_product.value!!).addOnSuccessListener {
             requestSaveSuccess.value = true
         }.addOnCanceledListener {
             requestSaveFailed.value = true
@@ -67,7 +67,7 @@ class ProductDetailViewModel(product: Product, status: ProductDetailStatus) : Vi
         if(!validProduct()) return
         updateProduct()
         Log.i("Products", "SaveAdd")
-        db.collection("products").add(_product).addOnSuccessListener {
+        db.collection("products").add(_product.value!!).addOnSuccessListener {
             requestSaveSuccess.value = true
         }.addOnCanceledListener {
             requestSaveFailed.value = true
@@ -136,9 +136,9 @@ class ProductDetailViewModel(product: Product, status: ProductDetailStatus) : Vi
         _editProduct.value?.categories = categories.split(" | ") as MutableList<String>
     }
 
-    fun getEditPrice() = "%.2f".format(_editProduct.value?.pricePerDay)
+    fun getEditPrice() = _editProduct.value?.pricePerDay.toString()
     fun setEditPrice(price: String) {
-        _editProduct.value?.pricePerDay = if(price.isEmpty()) 0.0 else price.toDouble()
+        _editProduct.value?.pricePerDay = if(price.isEmpty() || price == "-") 0.0 else price.toDouble()
     }
 
     fun getEditLatitude() = _editProduct.value?.latitude.toString()
